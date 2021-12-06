@@ -1,0 +1,13 @@
+1. Install CRA and NestJS apps
+2. Create server / client application
+
+
+
+1. Why do we need a solution like docker?
+2. What is docker?
+3. What is image / container?
+4. What is kubernetes
+5. What is minikube?
+6. What is kubectl?
+7. What is kustomize?
+8. What is skaffold?

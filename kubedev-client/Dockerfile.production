@@ -1,0 +1,27 @@
+FROM node:14.18-alpine AS build
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+ARG NODE_ENV=production
+
+ENV NODE_ENV=${NODE_ENV}
+
+RUN npm run build
+
+# -------------------
+
+FROM node:14.18-alpine
+
+WORKDIR /usr/src/app
+
+RUN npm install -g serve
+
+COPY --from=build /usr/src/app/build /usr/src/app/build
+
+CMD ["serve", "-s", "build", "-l", "3001"]
