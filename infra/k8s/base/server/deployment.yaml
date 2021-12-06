@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedev-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubedev-server
+  template:
+    metadata:
+      labels:
+        app: kubedev-server
+    spec:
+      containers:
+        - name: kubedev-server
+          image: some.registry.io/kubedev/server:latest
+          envFrom:
+            - configMapRef:
+                name: kubedev-server-config-map
+          ports:
+            - containerPort: 3000

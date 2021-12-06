@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedev-postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubedev-postgres
+  template:
+    metadata:
+      labels:
+        app: kubedev-postgres
+    spec:
+      containers:
+        - name: kubedev-postgres
+          image: postgres:14.1
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: kubedev-postgres-config-map
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: kubedev-postgresdb-volume
+      volumes:
+        - name: kubedev-postgresdb-volume
+          persistentVolumeClaim:
+            claimName: kubedev-postgres-pv-claim

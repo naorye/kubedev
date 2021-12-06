@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubedev-server-config-map
+  labels:
+    app: kubedev-server
+data:
+  POSTGRES_HOST: kubedev-postgres-service
+  POSTGRES_DATABASE_NAME: kubedev
+  POSTGRES_PORT: "5432"

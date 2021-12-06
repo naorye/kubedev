@@ -1,0 +1,71 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+
+metadata:
+  name: kubedev-app
+
+build:
+  artifacts:
+    - image: some.registry.io/kubedev/client
+      sync:
+        infer:
+          - "**/*.ts"
+          - "**/*.tsx"
+          - "**/*.css"
+      context: "./kubedev-client"
+      docker:
+        dockerfile: DEFINED_BY_PROFILE
+
+    - image: some.registry.io/kubedev/server
+      sync:
+        infer:
+          - "src/**/*"
+      context: "./kubedev-server"
+      docker:
+        dockerfile: DEFINED_BY_PROFILE
+
+portForward:
+  - resourceType: Service
+    resourceName: kubedev-client-service
+    port: 3001
+    localPort: 3001
+
+  - resourceType: Service
+    resourceName: kubedev-server-service
+    port: 3000
+    localPort: 3000
+
+  - resourceType: Service
+    resourceName: kubedev-postgres-service
+    port: 5432
+    localPort: 54320
+
+profiles:
+  - name: development
+    build:
+      local:
+        push: false
+    deploy:
+      kustomize:
+        paths:
+          - infra/k8s/overlays/development
+    patches:
+      - op: replace
+        path: /build/artifacts/0/docker/dockerfile
+        value: Dockerfile.development
+      - op: replace
+        path: /build/artifacts/1/docker/dockerfile
+        value: Dockerfile.development
+
+  - name: production
+    patches:
+      - op: replace
+        path: /build/artifacts/0/docker/dockerfile
+        value: Dockerfile.production
+      - op: replace
+        path: /build/artifacts/1/docker/dockerfile
+        value: Dockerfile.production
+    deploy:
+      kustomize:
+        paths:
+          - infra/k8s/overlays/production

@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - client/service.yaml
+  - client/deployment.yaml
+  - server/config-map.yaml
+  - server/deployment.yaml
+  - server/service.yaml
+  - postgres/config-map.yaml
+  - postgres/persistent-volume-claim.yaml
+  - postgres/persistent-volume.yaml
+  - postgres/deployment.yaml
+  - postgres/service.yaml

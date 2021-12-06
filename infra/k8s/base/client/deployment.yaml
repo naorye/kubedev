@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedev-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubedev-client
+  template:
+    metadata:
+      labels:
+        app: kubedev-client
+    spec:
+      containers:
+        - name: kubedev-client
+          image: some.registry.io/kubedev/client:latest
+          ports:
+            - containerPort: 3001
