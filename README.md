@@ -7,7 +7,7 @@ This repo includes two projects:
 
 Each project includes development and production Dockerfiles.
 
-Inside `infra/k8s` you can find kubernetes configurations for development and production, built to be used with kustomize.
+Inside `infra/k8s` you can find kubernetes configurations of client, server and postgres, for development and production, built to be used with kustomize.
 
 `skaffold.yaml` contains the magic that allows us to run build-push-deploy flow both in local and production.
 
