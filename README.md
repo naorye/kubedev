@@ -18,4 +18,4 @@ Inside `infra/k8s` you can find kubernetes configurations for development and pr
 
 ## Run
 1. `skaffold dev --profile=development` will run the app in development mode using the current kubectl context
-2. `skaffold run --profile production --default-repo=gcr.io/$(gcloud config get-value project)` will deploy production to the current kubectl context
+2. `skaffold run --profile=production --default-repo=gcr.io/$(gcloud config get-value project)` will deploy production to the current kubectl context
