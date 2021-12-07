@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: neverrekt-postgres-service
+  name: kubedev-postgres-service
   labels:
-    app: neverrekt-postgres
+    app: kubedev-postgres
 spec:
   type: NodePort
   ports:
     - port: 5432
       targetPort: 5432
   selector:
-    app: neverrekt-postgres
+    app: kubedev-postgres
