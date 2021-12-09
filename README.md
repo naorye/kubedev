@@ -26,4 +26,4 @@ Inside `infra/k8s` you can find kubernetes configurations of client, server and 
 
 ## Run slide show
 
-[Click here](href=naorye/kubedev/tree/master/slide)
+[Click here](https://github.com/naorye/kubedev/tree/master/slide)
